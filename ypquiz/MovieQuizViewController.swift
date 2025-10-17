@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MovieQuizViewController.swift
 //  ypquiz
 //
 //  Created by Кирилл Ефремов on 17.10.2025.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var quizProgressLabel: UILabel!
     @IBOutlet private weak var quizQuestionLabel: UILabel!
     @IBOutlet private weak var quizImageView: UIImageView!
