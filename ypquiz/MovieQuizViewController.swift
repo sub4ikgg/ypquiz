@@ -79,12 +79,12 @@ final class MovieQuizViewController: UIViewController {
         """
         
         let alertController = UIAlertController(
-            title: "Этот раунд окончен!",
+            title: QuizResultConstants.alertTitle,
             message: message,
             preferredStyle: .alert
         )
         
-        let playAgainAction = UIAlertAction(title: "Сыграть еще раз", style: .default) { [weak self] _ in
+        let playAgainAction = UIAlertAction(title: QuizResultConstants.alertTitle, style: .default) { [weak self] _ in
             self?.startQuiz()
         }
         
