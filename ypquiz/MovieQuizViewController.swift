@@ -55,10 +55,10 @@ final class MovieQuizViewController: UIViewController {
         
         let currentAccuracy = (Double(score) / Double(total)) * 100
         
-        let quizzesPlayed = defaults.integer(forKey: "quizzes_played")
-        let previousAverage = defaults.double(forKey: "average_accuracy")
-        let record = defaults.integer(forKey: "record")
-        let recordDate = (defaults.object(forKey: "record_date") as? Date) ?? Date()
+        let quizzesPlayed = defaults.integer(forKey: UserDefaultsConstants.quizzesPlayedKey)
+        let previousAverage = defaults.double(forKey: UserDefaultsConstants.averageAccuracyKey)
+        let record = defaults.integer(forKey: UserDefaultsConstants.recordKey)
+        let recordDate = (defaults.object(forKey: UserDefaultsConstants.recordDateKey) as? Date) ?? Date()
         
         let newAverageAccuracy = (previousAverage * Double(quizzesPlayed) + currentAccuracy) / Double(quizzesPlayed + 1)
         
@@ -153,16 +153,16 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func saveRecord() {
-        UserDefaults.standard.set(score, forKey: "record")
-        UserDefaults.standard.set(Date(), forKey: "record_date")
+        UserDefaults.standard.set(score, forKey: UserDefaultsConstants.recordKey)
+        UserDefaults.standard.set(Date(), forKey: UserDefaultsConstants.recordDateKey)
     }
     
     private func saveQuizzesPlayed(quizzesPlayed: Int) {
-        UserDefaults.standard.set(quizzesPlayed, forKey: "quizzes_played")
+        UserDefaults.standard.set(quizzesPlayed, forKey: UserDefaultsConstants.quizzesPlayedKey)
     }
     
     private func saveAverageAccuracy(averageAccuracy: Double) {
-        UserDefaults.standard.set(averageAccuracy, forKey: "average_accuracy")
+        UserDefaults.standard.set(averageAccuracy, forKey: UserDefaultsConstants.averageAccuracyKey)
     }
 }
 
