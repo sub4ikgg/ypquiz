@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+final class QuizResultConstants {
+    static let alertTitle: String = "Этот раунд окончен!"
+    static let playAgainActionTitle: String = "Сыграть еще раз"
+}
