@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var quizProgressLabel: UILabel!
     @IBOutlet private weak var quizQuestionLabel: UILabel!
     @IBOutlet private weak var quizImageView: UIImageView!
