@@ -99,7 +99,7 @@ final class MovieQuizViewController: UIViewController {
     private func answerQuiz(answer: Bool) {
         let isCorrectAnswer = quizQuestions[currentQuizQuestionIndex].answer == answer
         
-        if (isCorrectAnswer) {
+        if isCorrectAnswer {
             score += 1
         }
         
