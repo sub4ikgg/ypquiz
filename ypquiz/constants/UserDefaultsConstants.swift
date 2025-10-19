@@ -11,5 +11,6 @@ final class UserDefaultsConstants {
     static let quizzesPlayedKey = "quizzes_played"
     static let averageAccuracyKey = "average_accuracy"
     static let recordKey = "record"
+    static let recordTotalKey = "record_total"
     static let recordDateKey = "record_date"
 }
