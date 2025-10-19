@@ -28,6 +28,8 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
     private var currentQuizQuestionProgress = 0
     private var quizziesTotal = 0
     
+    private var isQuizLoading = false
+    
     required init?(coder: NSCoder) {
         self.quizQuestionsFactory = QuizQuestionsFactory()
         self.quizStatisticsService = QuizStatisticsService()
@@ -149,21 +151,29 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
     }
     
     private func showQuizLoading() {
+        if isQuizLoading { return }
+        
         quizImageView.setVisibility(false)
         quizQuestionLabel.setVisibility(false)
         buttonsStackView.setVisibility(false)
         
         activityIndicator.setVisibility(true)
         activityIndicator.startAnimating()
+        
+        isQuizLoading = true
     }
     
     private func hideQuizLoading() {
+        if !isQuizLoading { return }
+        
         activityIndicator.setVisibility(false)
         activityIndicator.stopAnimating()
         
         quizImageView.setVisibility(true)
         quizQuestionLabel.setVisibility(true)
         buttonsStackView.setVisibility(true)
+        
+        isQuizLoading = false
     }
     
     // MARK: - Actions
