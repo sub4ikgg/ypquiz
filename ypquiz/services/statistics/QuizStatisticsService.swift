@@ -8,6 +8,12 @@
 import Foundation
 
 final class QuizStatisticsService: QuizStatisticsServiceProtocol {
+    private lazy var dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd.MM.yy HH:mm"
+        return f
+    }()
+    
     func processStatistics(quizStatistics: QuizStatistics) -> QuizStatisticsResult {
         let defaults = UserDefaults.standard
         let previousRecord = defaults.integer(forKey: UserDefaultsConstants.recordKey)
@@ -20,9 +26,6 @@ final class QuizStatisticsService: QuizStatisticsServiceProtocol {
         let previousAverage = defaults.double(forKey: UserDefaultsConstants.averageAccuracyKey)
         let newAverageAccuracy = defaults.object(forKey: UserDefaultsConstants.averageAccuracyKey) != nil ?
             (previousAverage * Double(quizzesPlayed) + currentAccuracy) / Double(quizzesPlayed + 1) : currentAccuracy
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yy HH:mm"
         
         saveQuizzesPlayed(quizzesPlayed: quizzesPlayed)
         saveAverageAccuracy(averageAccuracy: newAverageAccuracy)
