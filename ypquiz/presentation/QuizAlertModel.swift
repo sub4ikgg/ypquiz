@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct QuizResultModel {
+struct QuizAlertModel {
     let title: String
     let message: String
     let buttonText: String

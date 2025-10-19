@@ -25,13 +25,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K33-yf-lZx" userLabel="QuestionLabel">
-                                <rect key="frame" x="20" y="59.000000000000007" width="76" height="23.333333333333336"/>
+                                <rect key="frame" x="20" y="58.999999999999993" width="71.666666666666671" height="23.666666666666664"/>
                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlienPoster" translatesAutoresizingMaskIntoConstraints="NO" id="170-1D-cS7" userLabel="QuizImageView">
-                                <rect key="frame" x="20" y="102.33333333333331" width="353" height="535.66666666666674"/>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlienPoster" translatesAutoresizingMaskIntoConstraints="NO" id="170-1D-cS7" userLabel="QuizImageView">
+                                <rect key="frame" x="20" y="102.66666666666669" width="353" height="535.33333333333326"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="20"/>
@@ -39,7 +39,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="clipBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше 5?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEJ-QN-UYK" userLabel="QuizQuestionLabel">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше 5?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEJ-QN-UYK" userLabel="QuizQuestionLabel">
                                 <rect key="frame" x="62" y="671" width="269" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="ida-k1-Ka0"/>
@@ -48,13 +48,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmV-U5-WfB" userLabel="QuizProgressLabel">
-                                <rect key="frame" x="332.66666666666669" y="59.000000000000007" width="40.333333333333314" height="23.333333333333336"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmV-U5-WfB" userLabel="QuizProgressLabel">
+                                <rect key="frame" x="341" y="58.999999999999993" width="32" height="23.666666666666664"/>
                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Hfs-IM-Ltb" userLabel="ButtonsStackView">
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Hfs-IM-Ltb" userLabel="ButtonsStackView">
                                 <rect key="frame" x="20" y="758" width="353" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-9C-gKH" userLabel="NoButton">
@@ -98,6 +98,11 @@
                                     <constraint firstAttribute="height" constant="60" id="MvN-E7-qz6"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ulv-4N-6rm">
+                                <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
@@ -115,11 +120,15 @@
                             <constraint firstItem="K33-yf-lZx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LHu-ZH-VoW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hfs-IM-Ltb" secondAttribute="trailing" constant="20" id="QbK-3S-gDJ"/>
                             <constraint firstItem="170-1D-cS7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QeN-gc-HK2"/>
+                            <constraint firstItem="ulv-4N-6rm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aCw-J1-wfY"/>
                             <constraint firstItem="K33-yf-lZx" firstAttribute="baseline" secondItem="BmV-U5-WfB" secondAttribute="baseline" id="bNm-mK-R1N"/>
+                            <constraint firstItem="ulv-4N-6rm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hRU-Lw-dRf"/>
                             <constraint firstItem="170-1D-cS7" firstAttribute="top" secondItem="K33-yf-lZx" secondAttribute="bottom" constant="20" id="kAG-bJ-2Jn"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ulv-4N-6rm" id="1mX-LW-xwZ"/>
+                        <outlet property="buttonsStackView" destination="Hfs-IM-Ltb" id="omm-N4-v2O"/>
                         <outlet property="noButton" destination="qeL-9C-gKH" id="8LH-6F-2g0"/>
                         <outlet property="quizImageView" destination="170-1D-cS7" id="lYw-24-rra"/>
                         <outlet property="quizProgressLabel" destination="BmV-U5-WfB" id="YSz-Jc-iOc"/>

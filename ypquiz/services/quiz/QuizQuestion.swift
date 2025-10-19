@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct QuizQuestion {
-    let image: UIImage
+    let imageData: Data
     let question: String
     let answer: Bool
 }

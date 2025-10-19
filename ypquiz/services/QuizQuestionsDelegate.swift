@@ -9,5 +9,8 @@ import Foundation
 
 protocol QuizQuestionsDelegate: AnyObject {
     func didFinishQuiz()
+    
+    func didLoadedQuestions(count: Int)
     func didReceiveNewQuizQuestion(quizQuestion: QuizQuestion)
+    func didReceiveError(error: Error)
 }

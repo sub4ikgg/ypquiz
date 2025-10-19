@@ -8,21 +8,32 @@
 import Foundation
 
 final class QuizQuestionsFactory: QuizQuestionsFactoryProtocol {
-    weak var delegate: QuizQuestionsDelegate?
+    private let quizQuestionsLoader: QuizQuestionsLoading
     
     private var quizQuestions = [QuizQuestion]()
     
-    private func fetchQuestions() -> [QuizQuestion] {
-        MockQuizQuestions.fetch()
+    weak var delegate: QuizQuestionsDelegate?
+    
+    init(quizQuestionsLoader: QuizQuestionsLoading = QuizQustionsLoader()) {
+        self.quizQuestionsLoader = quizQuestionsLoader
     }
     
     func setupDelegate(_ delegate: (any QuizQuestionsDelegate)?) {
         self.delegate = delegate
     }
     
-    func requestQuizQuestions() -> Int {
-        quizQuestions = fetchQuestions()
-        return quizQuestions.count
+    func loadQuizQuestions() {
+        quizQuestionsLoader.loadMovies { result in
+            switch result {
+            case .success(let quizQuestions):
+                self.quizQuestions = quizQuestions.questions
+                self.delegate?.didLoadedQuestions(count: self.quizQuestions.count)
+                self.requestNextQuizQuestion()
+                
+            case .failure(let error):
+                self.delegate?.didReceiveError(error: error)
+            }
+        }
     }
 
     func requestNextQuizQuestion() {
