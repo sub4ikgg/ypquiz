@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol QuizQuestionsLoading {
-    func loadMovies(handler: @escaping (Result<QuizQuestions, Error>) -> Void)
+    func loadQuizQuestions(handler: @escaping (Result<QuizQuestions, Error>) -> Void)
 }

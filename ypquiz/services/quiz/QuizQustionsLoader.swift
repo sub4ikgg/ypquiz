@@ -10,7 +10,7 @@ import UIKit
 
 struct QuizQustionsLoader: QuizQuestionsLoading {
     // MARK: - NetworkClient
-    private let networkClient = NetworkClient()
+    private let networkClient: NetworkClientProtocol
     
     // MARK: - URL
     private var mostPopularMoviesUrl: URL {
@@ -21,8 +21,12 @@ struct QuizQustionsLoader: QuizQuestionsLoading {
         return url
     }
     
-    // MARK: - MoviesLoading
-    func loadMovies(handler: @escaping (Result<QuizQuestions, Error>) -> Void) {
+    init(networkClient: NetworkClientProtocol = NetworkClient()) {
+        self.networkClient = networkClient
+    }
+    
+    // MARK: - QuizQuestionsLoading
+    func loadQuizQuestions(handler: @escaping (Result<QuizQuestions, Error>) -> Void) {
         networkClient.fetch(url: mostPopularMoviesUrl) { result in
             switch result {
             case .success(let data):
