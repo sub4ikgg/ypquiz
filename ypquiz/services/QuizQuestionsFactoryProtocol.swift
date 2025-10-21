@@ -12,6 +12,6 @@ protocol QuizQuestionsFactoryProtocol {
     
     func setupDelegate(_ delegate: QuizQuestionsDelegate?)
     
-    func requestQuizQuestions() -> Int
+    func loadQuizQuestions()
     func requestNextQuizQuestion()
 }

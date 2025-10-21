@@ -1,5 +1,5 @@
 //
-//  QuizResultAlertPresenter.swift
+//  QuizAlertPresenter.swift
 //  ypquiz
 //
 //  Created by Кирилл Ефремов on 18.10.2025.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-final class QuizResultAlertPresenter {
-    func show(in vc: UIViewController, model: QuizResultModel) {
+final class QuizAlertPresenter {
+    func show(in vc: UIViewController, model: QuizAlertModel) {
         let alert = UIAlertController(
             title: model.title,
             message: model.message,
