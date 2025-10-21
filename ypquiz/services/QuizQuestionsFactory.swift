@@ -23,7 +23,7 @@ final class QuizQuestionsFactory: QuizQuestionsFactoryProtocol {
     }
     
     func loadQuizQuestions() {
-        quizQuestionsLoader.loadMovies { result in
+        quizQuestionsLoader.loadQuizQuestions { result in
             switch result {
             case .success(let quizQuestions):
                 self.quizQuestions = quizQuestions.questions

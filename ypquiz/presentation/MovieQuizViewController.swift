@@ -7,10 +7,7 @@
 
 import UIKit
 
-final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
-    private let quizQuestionsFactory: QuizQuestionsFactoryProtocol
-    private let quizStatisticsService: QuizStatisticsServiceProtocol
-    
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol {
     @IBOutlet private weak var quizProgressLabel: UILabel!
     @IBOutlet private weak var quizQuestionLabel: UILabel!
     @IBOutlet private weak var quizImageView: UIImageView!
@@ -21,48 +18,24 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    private let presenter = MovieQuizPresenter()
     private let quizAlertPresenter = QuizAlertPresenter()
-    
-    private var score = 0
-    private var currentQuizQuestion: QuizQuestion? = nil
-    private var currentQuizQuestionProgress = 0
-    private var quizziesTotal = 0
-    
-    private var isQuizLoading = false
-    
-    required init?(coder: NSCoder) {
-        self.quizQuestionsFactory = QuizQuestionsFactory()
-        self.quizStatisticsService = QuizStatisticsService()
-        super.init(coder: coder)
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.quizQuestionsFactory.setupDelegate(self)
+        presenter.setupViewController(self)
+        presenter.startQuiz()
         
-        startQuiz()
+        activityIndicator.isAccessibilityElement = true
+        activityIndicator.accessibilityIdentifier = "activityIndicator"
     }
     
     // MARK: - Quiz Flow
-    private func startQuiz() {
-        showQuizLoading()
-        
-        currentQuizQuestion = nil
-        currentQuizQuestionProgress = 0
-        score = 0
-        
-        quizQuestionsFactory.loadQuizQuestions()
-    }
-    
-    private func showQuizQuestion(quizQuestion: QuizQuestion) {
-        currentQuizQuestion = quizQuestion
-        currentQuizQuestionProgress = currentQuizQuestionProgress + 1
-        
-        updateQuizProgressLabel(currentQuizQuestionProgress: currentQuizQuestionProgress, quizziesTotal: quizziesTotal)
-        updateQuizImageView(imageData: quizQuestion.imageData)
-        updateQuizQuestionLabel(question: quizQuestion.question)
+    func showQuizQuestion(quizQuestionViewModel: QuizQuestionViewModel) {
+        updateQuizImageView(image: quizQuestionViewModel.image)
+        updateQuizQuestionLabel(question: quizQuestionViewModel.question)
         updateButtons(enabled: true)
         
         if activityIndicator.isAnimating {
@@ -70,10 +43,7 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
         }
     }
     
-    private func showQuizResultAlert() {
-        let statistics = QuizStatistics(score: score, total: quizziesTotal)
-        let statisticsResult = quizStatisticsService.processStatistics(quizStatistics: statistics)
-        
+    func showQuizResultAlert(statisticsResult: QuizStatisticsResult) {
         let message = """
             Ваш результат: \(statisticsResult.score)/\(statisticsResult.total)
             Количество сыгранных квизов: \(statisticsResult.quizzesPlayed)
@@ -88,13 +58,13 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
                 message: message,
                 buttonText: QuizResultConstants.playAgainActionTitle,
                 completion: { [weak self] in
-                    self?.startQuiz()
+                    self?.presenter.startQuiz()
                 }
             )
         )
     }
     
-    private func showErrorAlert() {
+    func showErrorAlert() {
         quizAlertPresenter.show(
             in: self,
             model: QuizAlertModel(
@@ -102,56 +72,40 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
                 message: QuizErrorConstants.alertMessage,
                 buttonText: QuizErrorConstants.buttonText,
                 completion: { [weak self] in
-                    self?.startQuiz()
+                    self?.presenter.startQuiz()
                 }
             )
         )
     }
     
-    private func answerQuiz(answer: Bool) {
-        guard let currentQuizQuestion = currentQuizQuestion else { showErrorAlert(); return }
-        let isCorrectAnswer = currentQuizQuestion.answer == answer
-        
-        if isCorrectAnswer {
-            score += 1
-        }
-        
-        quizImageView.layer.masksToBounds = true
-        quizImageView.layer.borderWidth = 8
-        quizImageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
-        quizImageView.layer.cornerRadius = 20
-        
-        updateButtons(enabled: false)
-        
-        let isLastQuizQuestion = currentQuizQuestionProgress == quizziesTotal
-        DispatchQueue.main.asyncAfter(deadline: .now() + (isLastQuizQuestion ? 0 : 1)) { [weak self] in
-            guard let self = self else { return }
-            
-            self.quizQuestionsFactory.requestNextQuizQuestion()
-        }
-    }
-    
     // MARK: - UI Updates
-    private func updateQuizProgressLabel(currentQuizQuestionProgress: Int, quizziesTotal: Int) {
+    func updateQuizProgressLabel(currentQuizQuestionProgress: Int, quizziesTotal: Int) {
         quizProgressLabel.text = "\(currentQuizQuestionProgress)/\(quizziesTotal)"
     }
     
-    private func updateQuizImageView(imageData: Data) {
-        quizImageView.image = UIImage(data: imageData) ?? UIImage()
+    func updateQuizImageView(image: UIImage) {
+        quizImageView.image = image
         quizImageView.layer.borderWidth = 0
     }
     
-    private func updateQuizQuestionLabel(question: String) {
+    func updateQuizQuestionLabel(question: String) {
         quizQuestionLabel.text = question
     }
     
-    private func updateButtons(enabled: Bool) {
+    func updateButtons(enabled: Bool) {
         noButton.isUserInteractionEnabled = enabled
         yesButton.isUserInteractionEnabled = enabled
     }
     
-    private func showQuizLoading() {
-        if isQuizLoading { return }
+    func updateQuizImageViewByAnswerResult(isCorrectAnswer: Bool) {
+        quizImageView.layer.masksToBounds = true
+        quizImageView.layer.borderWidth = 8
+        quizImageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
+        quizImageView.layer.cornerRadius = 20
+    }
+    
+    func showQuizLoading() {
+        if activityIndicator.isAnimating { return }
         
         quizImageView.setVisibility(false)
         quizQuestionLabel.setVisibility(false)
@@ -159,12 +113,10 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
         
         activityIndicator.setVisibility(true)
         activityIndicator.startAnimating()
-        
-        isQuizLoading = true
     }
     
-    private func hideQuizLoading() {
-        if !isQuizLoading { return }
+    func hideQuizLoading() {
+        if !activityIndicator.isAnimating { return }
         
         activityIndicator.setVisibility(false)
         activityIndicator.stopAnimating()
@@ -172,42 +124,15 @@ final class MovieQuizViewController: UIViewController, QuizQuestionsDelegate {
         quizImageView.setVisibility(true)
         quizQuestionLabel.setVisibility(true)
         buttonsStackView.setVisibility(true)
-        
-        isQuizLoading = false
     }
     
     // MARK: - Actions
     @IBAction func noButtonTouch(_ sender: Any) {
-        answerQuiz(answer: false)
+        presenter.noButtonTouch(sender)
     }
     
     @IBAction func yesButtonTouch(_ sender: Any) {
-        answerQuiz(answer: true)
-    }
-    
-    // MARK: - QuizQuestionsDelegate
-    internal func didFinishQuiz() {
-        DispatchQueue.main.async { [weak self] in
-            self?.showQuizResultAlert()
-        }
-    }
-
-    internal func didLoadedQuestions(count: Int) {
-        DispatchQueue.main.async { [weak self] in
-            self?.quizziesTotal = count
-        }
-    }
-    
-    internal func didReceiveNewQuizQuestion(quizQuestion: QuizQuestion) {
-        DispatchQueue.main.async { [weak self] in
-            self?.showQuizQuestion(quizQuestion: quizQuestion)
-        }
-    }
-    
-    internal func didReceiveError(error: any Error) {
-        DispatchQueue.main.async { [weak self] in
-            self?.showErrorAlert()
-        }
+        presenter.yesButtonTouch(sender)
     }
 }
 

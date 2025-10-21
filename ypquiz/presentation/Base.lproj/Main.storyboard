@@ -32,6 +32,7 @@
                             </label>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlienPoster" translatesAutoresizingMaskIntoConstraints="NO" id="170-1D-cS7" userLabel="QuizImageView">
                                 <rect key="frame" x="20" y="102.66666666666669" width="353" height="535.33333333333326"/>
+                                <accessibility key="accessibilityConfiguration" identifier="quizImageView"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="20"/>
@@ -50,6 +51,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmV-U5-WfB" userLabel="QuizProgressLabel">
                                 <rect key="frame" x="341" y="58.999999999999993" width="32" height="23.666666666666664"/>
+                                <accessibility key="accessibilityConfiguration" identifier="quizProgressLabel"/>
                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -59,6 +61,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-9C-gKH" userLabel="NoButton">
                                         <rect key="frame" x="0.0" y="0.0" width="168.66666666666666" height="60"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="noButton"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Нет">
                                             <fontDescription key="titleFontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
@@ -77,6 +80,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtx-e7-FE8" userLabel="YesButton">
                                         <rect key="frame" x="184.66666666666663" y="0.0" width="168.33333333333337" height="60"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="yesButton"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Да">
                                             <fontDescription key="titleFontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>

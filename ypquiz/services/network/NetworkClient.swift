@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct NetworkClient {
+final class NetworkClient: NetworkClientProtocol {
 
     private enum NetworkError: Error {
         case codeError
